@@ -11,6 +11,7 @@ import com.laytonsmith.core.constructs.*;
 import com.laytonsmith.core.exceptions.CRE.CREIOException;
 import com.laytonsmith.core.exceptions.CRE.CREIllegalArgumentException;
 import com.laytonsmith.core.exceptions.CRE.CREPluginInternalException;
+import com.laytonsmith.core.natives.interfaces.Mixed;
 import me.dpohvar.powernbt.api.NBTCompound;
 import me.dpohvar.powernbt.api.NBTList;
 import me.dpohvar.powernbt.api.NBTManager;
@@ -89,7 +90,7 @@ public class Utils
 		return ret;
 	}
 
-	public static Object ConstructToObject(Construct source, MyNBTType type, Target t)
+	public static Object MixedToObject(Mixed source, MyNBTType type, Target t)
 	{
 		switch (type)
 		{
@@ -133,14 +134,14 @@ public class Utils
 
 	public static Object IdentArrayToObject(CArray item, Target t)
 	{
-		return ConstructToObject(item.get("value", t), MyNBTType.fromString(item.get("type", t).val()), t);
+		return MixedToObject(item.get("value", t), MyNBTType.fromString(item.get("type", t).val()), t);
 	}
 
 	public static CArray ObjectToIdentArray(Object obj, Target t)
 	{
 		CArray ret = CArray.GetAssociativeArray(t);
 		MyNBTType type;
-		Construct value;
+		Mixed value;
 
 		// Compound should not contain null values, this is here for safety
 		if (obj == null) {
@@ -199,9 +200,9 @@ public class Utils
 		MyNBTType subtype = MyNBTType.fromString(source.get("subtype", t).val());
 		List<Object> ret = new ArrayList<>();
 
-		for (Construct c : content.asList())
+		for (Mixed c : content.asList())
 		{
-			ret.add(ConstructToObject(c, subtype, t));
+			ret.add(MixedToObject(c, subtype, t));
 		}
 
 		return new NBTList(ret);
@@ -304,11 +305,11 @@ public class Utils
 
 	private static class Params
 	{
-		Class<? extends Construct> type;
+		Class<? extends Mixed> type;
 		MyNBTType subtype;
 		Class argument;
 
-		Params(Class<? extends Construct> type, MyNBTType subtype, Class argument) {
+		Params(Class<? extends Mixed> type, MyNBTType subtype, Class argument) {
 			this.type = type;
 			this.subtype = subtype;
 			this.argument = argument;

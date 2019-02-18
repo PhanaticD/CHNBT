@@ -21,12 +21,12 @@
 		<dependency>
 			<groupId>com.sk89q</groupId>
 			<artifactId>commandhelper</artifactId>
-			<version>3.3.3-SNAPSHOT</version>
+			<version>3.3.4-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>me.dpohvar.powernbt</groupId>
 			<artifactId>PowerNBT</artifactId>
-			<version>0.8.9.2</version>
+			<version>0.8.9.3</version>
 		</dependency>
 	</dependencies>
 

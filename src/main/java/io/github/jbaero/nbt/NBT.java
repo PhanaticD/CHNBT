@@ -9,15 +9,14 @@ import com.laytonsmith.annotations.api;
 import com.laytonsmith.core.ObjectGenerator;
 import com.laytonsmith.core.Static;
 import com.laytonsmith.core.constructs.CArray;
-import com.laytonsmith.core.constructs.CNull;
 import com.laytonsmith.core.constructs.CVoid;
-import com.laytonsmith.core.constructs.Construct;
 import com.laytonsmith.core.constructs.Target;
 import com.laytonsmith.core.environments.Environment;
 import com.laytonsmith.core.exceptions.CRE.*;
 import com.laytonsmith.core.exceptions.ConfigRuntimeException;
 import com.laytonsmith.core.functions.AbstractFunction;
 import com.laytonsmith.core.functions.InventoryManagement;
+import com.laytonsmith.core.natives.interfaces.Mixed;
 
 /**
  * NBT, 2/25/2016 1:35 AM
@@ -57,7 +56,7 @@ public class NBT {
 		}
 
 		@Override
-		public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException {
+		public Mixed exec(Target t, Environment env, Mixed... args) throws ConfigRuntimeException {
 			return Utils.readFile(Static.GetFileFromArgument(args[0].val(), env, t, null), t);
 		}
 
@@ -87,7 +86,7 @@ public class NBT {
 		}
 
 		@Override
-		public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException
+		public Mixed exec(Target t, Environment env, Mixed... args) throws ConfigRuntimeException
 		{
 			Utils.writeFile(Static.GetFileFromArgument(args[0].val(), env, t, null), Static.getArray(args[1], t), t);
 			return CVoid.VOID;
@@ -121,7 +120,7 @@ public class NBT {
 		}
 
 		@Override
-		public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException {
+		public Mixed exec(Target t, Environment env, Mixed... args) throws ConfigRuntimeException {
 			return Utils.readBlock(ObjectGenerator.GetGenerator().location(args[0], null, t), t);
 		}
 
@@ -150,7 +149,7 @@ public class NBT {
 		}
 
 		@Override
-		public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException {
+		public Mixed exec(Target t, Environment env, Mixed... args) throws ConfigRuntimeException {
 			Utils.writeBlock(ObjectGenerator.GetGenerator().location(args[0], null, t), Static.getArray(args[1], t), t);
 			return CVoid.VOID;
 		}
@@ -180,7 +179,7 @@ public class NBT {
 		}
 
 		@Override
-		public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException {
+		public Mixed exec(Target t, Environment env, Mixed... args) throws ConfigRuntimeException {
 			return Utils.readEntity(Static.getEntity(args[0], t), t);
 		}
 
@@ -209,7 +208,7 @@ public class NBT {
 		}
 
 		@Override
-		public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException {
+		public Mixed exec(Target t, Environment env, Mixed... args) throws ConfigRuntimeException {
 			Utils.writeEntity(Static.getEntity(args[0], t), Static.getArray(args[1], t), t);
 			return CVoid.VOID;
 		}
@@ -239,7 +238,7 @@ public class NBT {
 		}
 
 		@Override
-		public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException {
+		public Mixed exec(Target t, Environment env, Mixed... args) throws ConfigRuntimeException {
 			return Utils.readUser(Static.GetUser(args[0], t), t);
 		}
 
@@ -268,7 +267,7 @@ public class NBT {
 		}
 
 		@Override
-		public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException {
+		public Mixed exec(Target t, Environment env, Mixed... args) throws ConfigRuntimeException {
 			Utils.writeUser(Static.GetUser(args[0], t), Static.getArray(args[1], t), t);
 			return CVoid.VOID;
 		}
@@ -299,7 +298,7 @@ public class NBT {
 		}
 
 		@Override
-		public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException {
+		public Mixed exec(Target t, Environment env, Mixed... args) throws ConfigRuntimeException {
 
 			MCInventory inv = GetInventory(args[0], t);
 
@@ -329,7 +328,7 @@ public class NBT {
 	}
 
 	// TODO make this public in CH
-	private static MCInventory GetInventory(Construct specifier, Target t) {
+	private static MCInventory GetInventory(Mixed specifier, Target t) {
 		MCInventory inv;
 		if(specifier instanceof CArray) {
 			MCLocation l = ObjectGenerator.GetGenerator().location(specifier, null, t);
@@ -369,7 +368,7 @@ public class NBT {
 		}
 
 		@Override
-		public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException {
+		public Mixed exec(Target t, Environment env, Mixed... args) throws ConfigRuntimeException {
 
 			MCInventory inv = GetInventory(args[0], t);
 
@@ -408,7 +407,7 @@ public class NBT {
 		}
 
 		@Override
-		public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException {
+		public Mixed exec(Target t, Environment env, Mixed... args) throws ConfigRuntimeException {
 
 			MCEntityEquipment eq = Static.getLivingEntity(args[0], t).getEquipment();
 			MCEquipmentSlot slot;
@@ -470,7 +469,7 @@ public class NBT {
 		}
 
 		@Override
-		public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException {
+		public Mixed exec(Target t, Environment env, Mixed... args) throws ConfigRuntimeException {
 
 			MCEntityEquipment eq = Static.getLivingEntity(args[0], t).getEquipment();
 			MCEquipmentSlot slot;
